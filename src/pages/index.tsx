@@ -68,10 +68,10 @@ export const HomePage: React.FC = () => {
         <div className="app">
             <div className="layout">
                 <img src={TodoLogo} alt="todo-logo" style={{ width: "50px" }} />
-                <label> To Do </label>
+                <label> To Do</label>
             </div>
             <div className="container">
-                <h1 className="topic">To Do List</h1>
+                <h1 className="topic">To Do List <b style={{ fontWeight: "lighter", font: "small" , fontSize: "20px", color: "gray"}}>[{todos.length}]</b></h1>
                 <div className="card">
                     <TodoList todos={todos} />
                     <Button label="+ Add task" onClick={() => { setVisible(true) }}></Button>

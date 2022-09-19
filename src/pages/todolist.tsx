@@ -20,15 +20,28 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
     //   border: `1px solid black`,
     //   fontSize: `20px`,
     //   borderRadius: `5px`,
-  
+
     ...draggableStyle,
-  });
+});
 
 export const TodoList: React.FC<TodoListProps> = (props) => {
 
+    // const onDragEnd = (result: DropResult) => {
+    //     console.log(result);
+    // };
+
     const onDragEnd = (result: DropResult) => {
-        console.log(result);
+        const { source, destination } = result;
+        if (!destination) return;
+
+        const items = props.todos;
+        const [newOrder] = items.splice(source.index, 1);
+        items.splice(destination.index, 0, newOrder);
+
+        // setTodo(items);
+        // setToDoList(items);
     };
+
 
     const { todos } = props;
     return (
