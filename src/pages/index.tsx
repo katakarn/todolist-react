@@ -1,30 +1,48 @@
-import React from "react";
+import React, { useCallback } from "react";
 import TodoList from "./todolist";
 import "./index.scss";
 import TodoLogo from "../todo.png";
 import { Todo } from "../model/todo";
+import { TodoService } from "../service/todo.service";
+import AddTodo from "./addTodo";
+import { Button } from "react-rainbow-components";
+
+const mockData: Todo[] = [
+    {
+        id: "1",
+        title: "Learn React",
+        description: "Learn React",
+        isDone: false,
+    },
+    {
+        id: "2",
+        title: "Learn Typescript",
+        description: "Learn Typescript",
+        isDone: false,
+    },
+    {
+        id: "3",
+        title: "Learn React-Redux",
+        description: "Learn React-Redux",
+        isDone: false,
+    },
+];
 
 export const HomePage: React.FC = () => {
-    const [todos] = React.useState<Todo[]>([
-        {
-            id: "1",
-            text: "Learn React",
-            description: "Learn React",
-            completed: false,
-        },
-        {
-            id: "2",
-            text: "Learn TypeScript",
-            description: "Learn TypeScript",
-            completed: false,
-        },
-        {
-            id: "3",
-            text: "Learn GraphQL",
-            description: "Learn GraphQL",
-            completed: false,
-        },
-    ]);
+
+    const [todos, setTodos] = React.useState<Todo[]>(mockData);
+    // const [todos, setTodos] = React.useState<IToDoItem[]>([]);
+    const [visible, setVisible] = React.useState<boolean>(false);
+
+    const fetchData = useCallback(() => {
+        TodoService.getAllTodo().then((todos) => {
+            setTodos(todos);
+        });
+    }, []);
+
+    React.useEffect(() => {
+        fetchData();
+    }, [fetchData]);
 
     // const addTodo = (todo: any) => {
     //     const newTodos = [todo, ...todos];
@@ -54,8 +72,12 @@ export const HomePage: React.FC = () => {
             </div>
             <div className="container">
                 <h1 className="topic">To Do List</h1>
-                <TodoList todos={todos} />
+                <div className="card">
+                    <TodoList todos={todos} />
+                    <Button label="+ Add task" onClick={() => { setVisible(true) }}></Button>
+                </div>
             </div>
+            <AddTodo onHide={() => { fetchData(); setVisible(false); }} visible={visible} />
         </div>
     );
 };

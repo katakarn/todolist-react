@@ -1,6 +1,11 @@
 export interface Todo {
   id: string;
-  text: string;
+  title: string;
   description: string;
-  completed: boolean;
+  isDone: boolean;
+}
+
+export interface TodoRequest {
+  title: string;
+  description: string;
 }
