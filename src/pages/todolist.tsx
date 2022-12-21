@@ -70,6 +70,7 @@ export const TodoList: React.FC<TodoListProps> = (props) => {
                                                     provided.draggableProps.style
                                                 )}>
                                                 <Checkbox
+                                                    className="checkbox"
                                                     inputId={todo.id}
                                                     checked={todo.isDone}
                                                 // onChange={() => props.completeTodo(todo.id)}

@@ -44,6 +44,10 @@
             flex-direction: row;
             align-items: center;
 
+            & .p-checkbox .p-checkbox-box {
+                border-radius: 20px;
+            }
+
             & .info {
                 display: flex;
                 flex-direction: column;

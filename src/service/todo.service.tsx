@@ -17,6 +17,12 @@ export class TodoService {
         const res = await axios.post<Todo>(url, todo);
         return res.data;
     }
+
+    public static async updateTodo(todo: Todo): Promise<Todo> {
+        const url = `${Url}/${todo.id}`;
+        const res = await axios.put<Todo>(url, todo);
+        return res.data;
+    }
 }
 
 // export const getTodos = () => {
